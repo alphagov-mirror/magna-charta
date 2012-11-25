@@ -16,45 +16,79 @@
       margin-bottom: 20px;
       border: 1px solid #ccc;
       padding: 5px;
+      border-spacing: 0 5px;
+      position: relative;
     }
     caption{
       margin-bottom: 16px;
     }
-    thead{display: none;}
+    thead{
+      display: none;
+      position: absolute;
+      background-color: white;
+      left: 20px;
+      border: 1px solid #ccc;
+      padding: 0 5px;
+      margin-top: 10px;
+    }
     tr{
     }
     td{
-      padding: 2px 5px;
+      padding: 0px 5px;
       margin-bottom: 2px;
-      border: 0 solid blue;
+      border: 0 solid;
     }
     .mc-label{
       text-align: right;
       width: 50%;
     }
-    .mc-bar{
-    }
     .multiple .mc-bar{
       display: block;
       float: left;
       clear: left;
+      margin-bottom: 1px;
     }
-    .stacked .mc-bar{
+    .stacked .mc-bar,
+    .stacked .mc-total{
       display: block;
       float: left;
+      padding: 2px 5px;
+    }
+    .stacked .mc-bar{
       color: white;
       font-weight: 300;
       margin-right: 1px;
       background-color: blue;
-      padding: 5px;
-      font-size: 14px;
+      font-size: 16px;
       margin-bottom: 0;
     }
+    .multiple thead,
+    .stacked thead{
+      display: block;
+    }
+    thead th{
+      display: none;
+      font-weight: normal;
+      float: left;
+      clear: left;
+      margin-bottom: 1px;
+    }
+    .mc-key{
+      display: block;
+      border-left: 18px solid;
+      padding-left: 5px;
+    }
 
-    .mc-bar-1 {border-color: #1a2791;}
-    .mc-bar-2 {border-color: #005abb;}
-    .mc-bar-3 {border-color: #5bb4e5;}
-    .mc-bar-4 {border-color: #55bab7;}
+    .compact .mc-bar{
+      height: 12px;
+      line-height: 12px;
+      font-size: 12px;
+    }
+
+    .mc-bar-1, .mc-key-1 {border-color: #1a2791;}
+    .mc-bar-2, .mc-key-2 {border-color: #005abb;}
+    .mc-bar-3, .mc-key-3 {border-color: #5bb4e5;}
+    .mc-bar-4, .mc-key-4 {border-color: #55bab7;}
 
     .stacked .mc-bar-1 {background-color: #1a2791;}
     .stacked .mc-bar-2 {background-color: #005abb;}
@@ -82,26 +116,29 @@
     </tbody>
   </table>
 
-  <table class="multiple chart" id="fig1">
-    <caption>Fig. 2: The niceness of types of biscuit (according to Jack)</caption>
+  <table class="multiple compact chart" id="fig1">
+    <caption>Fig. 2: Team biscuit preferences (out of 10)</caption>
     <thead>
-      <tr><th>Biscuit</th><th>Niceness</th></tr>
+      <tr><th>Biscuit</th><th class="mc-key mc-key-1">Tim</th><th class="mc-key mc-key-2">Jack</th><th class="mc-key mc-key-3">Roo</th></tr>
     </thead>
     <tbody>
-      <tr><td class="mc-label">Caramel Digestives</td><td class="mc-bar mc-bar-1" style="border-left-width: 20px;">20</td><td class="mc-bar mc-bar-2" style="border-left-width: 40px;">40</td><td class="mc-bar mc-bar-3" style="border-left-width: 30px;">30</td></tr>
-      <tr><td class="mc-label">Caramel Digestives</td><td class="mc-bar mc-bar-1" style="border-left-width: 20px;">20</td><td class="mc-bar mc-bar-2" style="border-left-width: 30px;">30</td><td class="mc-bar mc-bar-3" style="border-left-width: 30px;">30</td></tr>
-      <tr><td class="mc-label">Caramel Digestives</td><td class="mc-bar mc-bar-1" style="border-left-width: 20px;">20</td><td class="mc-bar mc-bar-2" style="border-left-width: 10px;">10</td><td class="mc-bar mc-bar-3" style="border-left-width: 30px;">30</td></tr>
+      <tr><td class="mc-label">Caramel Digestives</td><td class="mc-bar mc-bar-1" style="border-left-width: 80px;">8</td><td class="mc-bar mc-bar-2" style="border-left-width: 90px;">9</td><td class="mc-bar mc-bar-3" style="border-left-width: 70px;">7</td></tr>
+      <tr><td class="mc-label">Nice biscuits</td><td class="mc-bar mc-bar-1" style="border-left-width: 70px;">7</td><td class="mc-bar mc-bar-2" style="border-left-width: 30px;">3</td><td class="mc-bar mc-bar-3" style="border-left-width: 50px;">5</td></tr>
+      <tr><td class="mc-label">Teacakes</td><td class="mc-bar mc-bar-1" style="border-left-width: 40px;">4</td><td class="mc-bar mc-bar-2" style="border-left-width: 40px;">4</td><td class="mc-bar mc-bar-3" style="border-left-width: 70px;">7</td></tr>
+      <tr><td class="mc-label">Hobnobs</td><td class="mc-bar mc-bar-1" style="border-left-width: 50px;">5</td><td class="mc-bar mc-bar-2" style="border-left-width: 30px;">3</td><td class="mc-bar mc-bar-3" style="border-left-width: 20px;">2</td></tr>
     </tbody>
   </table>
 
     <table class="stacked chart" id="fig3">
-    <caption>Fig. 2: The niceness of types of biscuit (according to Jack)</caption>
+    <caption>Fig. 3: Combined team biscuit preferences</caption>
     <thead>
-      <tr><th>Biscuit</th><th>Niceness</th></tr>
+      <tr><th>Biscuit</th><th class="mc-key mc-key-1">Tim</th><th class="mc-key mc-key-2">Jack</th><th class="mc-key mc-key-3">Roo</th><th>Total</th></tr>
     </thead>
     <tbody>
-      <tr><td class="mc-label">Caramel Digestives</td><td class="mc-bar mc-bar-1" style="border-left-width: 120px; text-indent: -120px">120</td><td class="mc-bar mc-bar-2" style="border-left-width: 40px; text-indent: -40px">40</td><td class="mc-bar mc-bar-3" style="border-left-width: 30px; text-indent: -30px">30</td></tr>
-      <tr><td class="mc-label">Caramel Digestives</td><td class="mc-bar mc-bar-1" style="border-left-width: 20px; text-indent: -20px">20</td><td class="mc-bar mc-bar-2" style="border-left-width: 40px; text-indent: -40px">40</td><td class="mc-bar mc-bar-3" style="border-left-width: 30px; text-indent: -30px">30</td></tr>
+      <tr><td class="mc-label">Caramel Digestives</td><td class="mc-bar mc-bar-1" style="border-left-width: 80px; text-indent: -80px">8</td><td class="mc-bar mc-bar-2" style="border-left-width: 90px; text-indent: -90px">9</td><td class="mc-bar mc-bar-3" style="border-left-width: 70px; text-indent: -70px">7</td><td class="mc-total">24</td></tr>
+      <tr><td class="mc-label">Nice biscuits</td><td class="mc-bar mc-bar-1" style="border-left-width: 70px; text-indent: -70px">7</td><td class="mc-bar mc-bar-2" style="border-left-width: 30px; text-indent: -30px">3</td><td class="mc-bar mc-bar-3" style="border-left-width: 50px; text-indent: -50px">5</td><td class="mc-total">15</td></tr>
+      <tr><td class="mc-label">Teacakes</td><td class="mc-bar mc-bar-1" style="border-left-width: 40px; text-indent: -40px">4</td><td class="mc-bar mc-bar-2" style="border-left-width: 40px; text-indent: -40px">4</td><td class="mc-bar mc-bar-3" style="border-left-width: 70px; text-indent: -70px">7</td><td class="mc-total">15</td></tr>
+      <tr><td class="mc-label">Hobnobs</td><td class="mc-bar mc-bar-1" style="border-left-width: 50px; text-indent: -50px">5</td><td class="mc-bar mc-bar-2" style="border-left-width: 30px; text-indent: -30px">3</td><td class="mc-bar mc-bar-3" style="border-left-width: 20px; text-indent: -20px">2</td><td class="mc-total">10</td></tr>
 
     </tbody>
   </table>
