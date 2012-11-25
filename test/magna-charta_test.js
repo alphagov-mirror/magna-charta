@@ -74,6 +74,10 @@
     equal(this.singleMC.$graph.find(".mc-bar-cell").length, 3);
   });
 
+  test('bar cells have their values wrapped in a span tag', function() {
+    equal(this.singleMC.$graph.find(".mc-bar-cell span").length, 3);
+  });
+
   test('bars are given the correct width', function() {
     var bars = this.singleMC.$graph.find(".mc-bar-cell");
     equal(bars.get(0).style.width, cW(5,5));
@@ -91,14 +95,18 @@
     });
   });
 
-  test('setting the outdentText option pushes the text out of the bar', function() {
-    ok(this.singleMC.options.outdentText);
-    this.singleMC.$graph.find(".mc-bar-cell").each(function(i, item) {
-      var $item = $(item);
-      var val = parseFloat($item.text(), 10);
-      equal($item[0].style.textIndent, parseFloat($item[0].style.width, 10) + 3 + "%");
-    });
+  module('jQuery.magnaCharta MULTIPLE', {
+    setup: function() {
+      this.$multipleTable = $("#qunit-fixture").children("#multiple2");
+      this.multipleMC = $.magnaCharta(this.$multipleTable);
+    }
   });
+
+  test('the graph of a multiple table is given a class', function() {
+    ok(this.multipleMC.$graph.hasClass("mc-multiple"));
+    ok(this.multipleMC.options.multiple);
+  });
+
 
   module('jQuery.magnaCharta STACKED', {
     setup: function() {
@@ -184,21 +192,25 @@
   });
 
 
-  module('jQuery.magnaCharta stacked with small values', {
+  module('jQuery.magnaCharta OUTDENT-All', {
     setup: function() {
-      this.$stackTable = $("#qunit-fixture").children("#zerovalues");
-      this.stackMC = $.magnaCharta(this.$stackTable, { barPadding: 3 });
+      this.$outdentAll = $("#qunit-fixture").children("#outdent-all");
+      this.outdentMC = $.magnaCharta(this.$outdentAll);
     }
   });
 
-  test('it adds the extra padding but not to 0 value cells', function() {
-    var bars = this.stackMC.$graph.find(".mc-bar-cell");
-    equal(bars.get(0).style.width, "0%");
-    equal(bars.get(1).style.width, cW(14, 1, 3));
-    equal(bars.get(5).style.width, "0%");
-    equal(bars.get(4).style.width, cW(14, 4, 3));
+  test('all cell values are pushed left', function() {
+    this.outdentMC.$graph.find(".mc-bar-cell span").each(function(i, item) {
+      equal(item.style.marginLeft, "100%");
+    });
   });
 
+  module('jQuery.magnaCharta AUTOOUTDENT', {
+    setup: function() {
+      this.$autoOutdent = $("#qunitfixture").children("#auto-outdent");
+      this.autoOutdentMC = $.magnaCharta(this.$autoOutdent);
+    }
+  });
 
 
 

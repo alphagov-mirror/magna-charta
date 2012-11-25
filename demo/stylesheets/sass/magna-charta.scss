@@ -187,6 +187,47 @@ $bar-colours:  $dark-blue,
     }
   }
 
+
+  // Charts with multiple columns get different coloured bars
+  $len: length($bar-colours);
+  @for $i from 0 to $len {
+   .mc-tr .mc-td.mc-bar-cell.mc-bar-#{$i+1} {
+     background-color: nth($bar-colours, $i + 1);
+   }
+   .mc-tr .mc-th.mc-key-#{$i+1} {
+     border-left-color: nth($bar-colours, $i+1);
+   }
+
+  }
+
+  .mc-td, .mc-th {
+    padding: 0;
+    padding-right: $bar-spacing;
+    margin-right: $stack-spacing;
+    border: 0 solid; 
+    &.mc-bar-cell { 
+      display: block;
+      background-color: #ebebeb; // Just for testing
+      text-align: left;
+      padding: $bar-padding 0;
+      margin-bottom: 1px;
+      color: $white;
+      text-indent: 4px;
+    }
+  }
+  .mc-bar-outdented {
+    span { color: #111; }
+  }
+  caption{
+    caption-side: $caption-side;
+  }
+  .mc-td.mc-key-cell {
+    width: $label-width;
+    text-indent: 26px;
+    text-align: $label-align;
+    display: table-cell;
+    vertical-align: middle;
+  }
   // OUTDENTED BAR VALUES
   &.mc-outdented{ 
     .mc-tbody{
@@ -207,6 +248,22 @@ $bar-colours:  $dark-blue,
 
 }
 
+
+.mc-outdented .mc-bar-cell.mc-bar-negative {
+  text-align: left;
+}
+
+// .mc-bar-cell.mc-bar-negative.mc-bar-indented {
+//   position: relative;
+//   span {
+//     position: absolute;
+//     right: 4px;
+//   }
+// }
+
+.mc-chart.mc-negative .mc-td.mc-key-cell {
+  padding-right: 25px;
+}
 .mc-toggle-link{
   display: block;
 }
