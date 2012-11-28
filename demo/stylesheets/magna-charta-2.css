@@ -1,0 +1,120 @@
+/*
+ * magna-charta example stylesheet
+ * https://github.com/alphagov/magna-charta
+ *
+ * Author: Tim Paul
+ * Licensed under the MIT license.
+ */
+.chart {
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 16px;
+  border: 1px solid #cacac8;
+  padding: 16px;
+  position: relative;
+  border-spacing: 0 8px; }
+  .chart caption {
+    margin-bottom: 16px;
+    caption-side: top; }
+  .chart thead {
+    display: none;
+    position: absolute;
+    background-color: white;
+    left: 24px;
+    border: 1px solid #cacac8;
+    padding: 0 8px;
+    margin-top: 16px; }
+    .chart thead th {
+      display: none; }
+    .chart thead .mc-key {
+      display: block;
+      font-weight: normal;
+      float: left;
+      clear: left;
+      margin-bottom: 1px;
+      border-left: 16px solid;
+      padding-left: 8px; }
+    .chart thead .mc-key-1 {
+      border-color: #1a2791; }
+    .chart thead .mc-key-2 {
+      border-color: #005abb; }
+    .chart thead .mc-key-3 {
+      border-color: #5bb4e5; }
+    .chart thead .mc-key-4 {
+      border-color: #55bab7; }
+  .chart td {
+    margin-bottom: 0;
+    border: 0 solid; }
+  .chart .mc-label {
+    text-align: right;
+    width: 50%;
+    padding-right: 8px; }
+  .chart .mc-bar,
+  .chart .mc-total {
+    font-size: 14px;
+    padding: 0 4px;
+    line-height: 20px; }
+  .chart .mc-bar-1 {
+    border-color: #1a2791; }
+  .chart .mc-bar-2 {
+    border-color: #005abb; }
+  .chart .mc-bar-3 {
+    border-color: #5bb4e5; }
+  .chart .mc-bar-4 {
+    border-color: #55bab7; }
+  .chart.stacked {
+    padding-top: 0px; }
+    .chart.stacked .mc-bar,
+    .chart.stacked .mc-total {
+      display: block;
+      float: left;
+      padding-right: 0; }
+    .chart.stacked .mc-bar {
+      color: white;
+      -webkit-print-color-adjust: exact;
+      font-weight: 300;
+      padding-left: 0;
+      margin-right: 1px; }
+    .chart.stacked .mc-bar-1 {
+      background-color: #1a2791; }
+    .chart.stacked .mc-bar-2 {
+      background-color: #005abb; }
+    .chart.stacked .mc-bar-3 {
+      background-color: #5bb4e5; }
+    .chart.stacked .mc-bar-4 {
+      background-color: #55bab7; }
+    .chart.stacked thead {
+      display: block; }
+  .chart.multiple {
+    padding-top: 0px; }
+    .chart.multiple .mc-bar {
+      display: block;
+      float: left;
+      clear: left;
+      margin-bottom: 1px; }
+    .chart.multiple thead {
+      display: block; }
+  .chart.percentage {
+    padding-top: 16px; }
+    .chart.percentage .mc-bar {
+      display: block;
+      float: left;
+      clear: left;
+      margin-bottom: 0;
+      background-color: #ebebeb;
+      text-indent: 4px;
+      padding-left: 0; }
+  .chart.horizontal {
+    padding: 16px 20%;
+    border-spacing: 1px 0; }
+    .chart.horizontal thead {
+      display: table-footer-group;
+      position: static; }
+      .chart.horizontal thead th {
+        display: table-cell;
+        font-weight: normal;
+        padding-top: 8px; }
+    .chart.horizontal td {
+      vertical-align: bottom;
+      text-align: center;
+      width: 50px; }

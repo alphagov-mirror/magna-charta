@@ -1,0 +1,167 @@
+/*
+ * magna-charta example stylesheet
+ * https://github.com/alphagov/magna-charta
+ *
+ * Author: Tim Paul
+ * Licensed under the MIT license.
+ */
+
+ // CHART PARAMETERS
+
+$chart-width: 100%;         // Chart width
+$label-width: 50%;          // Horizontal width taken up by the bar labels
+$label-align: right;        // Label alignment
+$base-unit: 16px;           // For font sizes and related margins, padding etc
+$bar-padding: 4px;          // The padding between the bar values and the edge of the bar
+$bar-spacing: 8px;          // The spacing around the bars
+$caption-side: top;         // Caption alignment. Top or bottom.
+
+// CHART COLOUR SCHEME
+
+@import 'colours';          // Cabinet Office colour palette (feel free to choose your own)
+$chart-border: $light-grey; // Chart border colour
+$key-border:   $light-grey; // Key border colour        
+$bar-colours:  $dark-blue,
+               $blue,
+               $light-blue, 
+               $turquoise;  // Bar colours
+
+
+// CHART STYLES
+
+.chart{
+  font-size: $base-unit;
+  width: $chart-width;
+  margin-bottom: $base-unit;
+  border: 1px solid $chart-border;
+  padding: $base-unit;
+  position: relative;
+  border-spacing: 0 $bar-spacing;
+  // CAPTIONS 
+  caption{
+    margin-bottom: $base-unit;
+    caption-side: $caption-side;
+  }
+  // KEY
+  thead{
+    display: none; // Hide key by default
+    position: absolute;
+    background-color: white;
+    left: $base-unit + $bar-spacing;
+    border: 1px solid $key-border;
+    padding: 0 $bar-spacing;
+    margin-top: 2 * $bar-spacing;
+    th{
+      display: none;
+    }
+    .mc-key{
+      display: block;
+      font-weight: normal;
+      float: left;
+      clear: left;
+      margin-bottom: 1px;
+      border-left: $base-unit solid; // The coloured key square
+      padding-left: $bar-spacing;
+    }
+    // Key colours
+    @for $i from 0 to length($bar-colours) {
+      .mc-key-#{$i+1} {
+        border-color: nth($bar-colours, $i+1);
+      }
+    }
+  }    
+  td{
+    margin-bottom: 0;
+    border: 0 solid;
+  }
+  // BAR LABELS
+  .mc-label{
+    text-align: $label-align;
+    width: $label-width;
+    padding-right: $bar-spacing;
+  }
+  // BARS AND TOTALS
+  .mc-bar,
+  .mc-total{
+    font-size: 14px;
+    padding: 0 $bar-padding;
+    line-height: $base-unit + $bar-padding;
+  }
+  // Bar colours
+  @for $i from 0 to length($bar-colours) {
+    .mc-bar-#{$i+1} {
+      border-color: nth($bar-colours, $i + 1);
+    }
+  }
+  // STACKED CHARTS
+  &.stacked{
+    padding-top: $base-unit - 2 * $bar-spacing;
+    .mc-bar,
+    .mc-total{
+      display: block;
+      float: left;
+      padding-right: 0; 
+    }
+    .mc-bar{
+      color: white;
+      -webkit-print-color-adjust: exact; // Force Webkit to retain white text colour in print
+      font-weight: 300;
+      padding-left: 0;
+      margin-right: 1px;
+    }  
+    // Bar colours
+    @for $i from 0 to length($bar-colours) {
+      .mc-bar-#{$i+1} {
+        background-color: nth($bar-colours, $i + 1);
+      }
+    }
+    thead{
+      display: block;
+    }
+  }
+  // MULTIPLE BAR CHARTS
+  &.multiple{
+    padding-top: $base-unit - 2 * $bar-spacing;
+    .mc-bar{
+      display: block;
+      float: left;
+      clear: left;
+      margin-bottom: 1px;
+    }
+    thead{
+      display: block;
+    }
+  }
+  // PERCENTAGE-BASED CHARTS
+  &.percentage{
+    padding-top: $base-unit;
+    .mc-bar{
+      display: block;
+      float: left;
+      clear: left;
+      margin-bottom: 0;
+      background-color: #ebebeb;
+      text-indent: $bar-padding;
+      padding-left: 0
+    }
+  }
+  // HORIZONTAL CHARTS
+  &.horizontal{
+    padding: $base-unit 20%;
+    border-spacing: 1px 0;
+    thead{
+      display: table-footer-group; // Move bar labels to bottom of chart
+      position: static;
+      th{
+        display: table-cell;
+        font-weight: normal;
+        padding-top: $bar-spacing;
+      }
+    }
+    td{
+      vertical-align: bottom;
+      text-align: center;
+      width: 50px; // 'Encourage' bars to have equal width
+    }
+  }
+}
