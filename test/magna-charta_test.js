@@ -22,10 +22,10 @@
       raises(block, [expected], [message])
   */
 
-  //widths are 65/max * val (65 by default)
+  //widths are 100/max * val (100 by default)
   var cW = function(max, val, padding) {
     padding = padding || 0;
-    return (65/max)*val+padding+"%";
+    return (100/max)*val+padding+"px";
   };
 
   module('jQuery.magnaCharta SINGLE', {
@@ -65,7 +65,7 @@
   test('figures out the maximum graph value', function() {
     deepEqual(this.singleMC.calculateMaxWidth(), {
       max: parseFloat(5, 10),
-      single: parseFloat(65/5, 10)
+      single: parseFloat(100/5, 10)
     });
   });
 
@@ -74,15 +74,11 @@
     equal(this.singleMC.$graph.find(".mc-bar-cell").length, 3);
   });
 
-  test('bar cells have their values wrapped in a span tag', function() {
-    equal(this.singleMC.$graph.find(".mc-bar-cell span").length, 3);
-  });
-
   test('bars are given the correct width', function() {
     var bars = this.singleMC.$graph.find(".mc-bar-cell");
-    equal(bars.get(0).style.width, cW(5,5));
-    equal(bars.get(1).style.width, cW(5, 4));
-    equal(bars.get(2).style.width, cW(5, 3));
+    equal(bars.get(0).style.borderLeftWidth, cW(5,5));
+    equal(bars.get(1).style.borderLeftWidth, cW(5, 4));
+    equal(bars.get(2).style.borderLeftWidth, cW(5, 3));
   });
 
   test('new chart is inserted into DOM after table', function() {
@@ -127,12 +123,12 @@
 
   test('the bar cells are given the right widths', function() {
     var cells = this.stackedMC.$graph.find(".mc-bar-cell");
-    equal(cells.get(0).style.width, cW(12, 5));
-    equal(cells.get(1).style.width, cW(12, 6));
-    equal(cells.get(2).style.width, cW(12, 6));
-    equal(cells.get(3).style.width, cW(12, 2));
-    equal(cells.get(4).style.width, cW(12, 3));
-    equal(cells.get(5).style.width, cW(12, 9));
+    equal(cells.get(0).style.borderLeftWidth, cW(12, 5));
+    equal(cells.get(1).style.borderLeftWidth, cW(12, 6));
+    equal(cells.get(2).style.borderLeftWidth, cW(12, 6));
+    equal(cells.get(3).style.borderLeftWidth, cW(12, 2));
+    equal(cells.get(4).style.borderLeftWidth, cW(12, 3));
+    equal(cells.get(5).style.borderLeftWidth, cW(12, 9));
   });
 
   test('the bar cells are given classes denoting their index', function() {
@@ -148,7 +144,7 @@
   test('calulateMaxWidth returns object with right max value in', function() {
     deepEqual(this.stackedMC.calculateMaxWidth(), {
       max: parseFloat(12, 10),
-      single: parseFloat(65/12, 10)
+      single: parseFloat(100/12, 10)
     });
   });
 
@@ -171,10 +167,10 @@
 
   test('cells are given the right width', function() {
     var cells = this.negMC.$graph.find(".mc-bar-cell");
-    equal(cells.get(0).style.width, cW(10, 5));
-    equal(cells.get(1).style.width, cW(10, 10));
-    equal(cells.get(2).style.width, cW(10, 10));
-    equal(cells.get(3).style.width, cW(10, 5));
+    equal(cells.get(0).style.borderLeftWidth, cW(10, 5));
+    equal(cells.get(1).style.borderLeftWidth, cW(10, 10));
+    equal(cells.get(2).style.borderLeftWidth, cW(10, 10));
+    equal(cells.get(3).style.borderLeftWidth, cW(10, 5));
   });
 
   test('positive cells are given a left margin to align them with negative cells', function() {
@@ -185,31 +181,10 @@
   test('calculateMaxWidth() returns extra info on negative chart', function() {
     deepEqual(this.negMC.calculateMaxWidth(), {
       max: parseFloat(10, 10),
-      single: parseFloat(65/10, 10),
-      marginLeft: parseFloat(10, 10) * parseFloat(65/10, 10),
+      single: parseFloat(100/10, 10),
+      marginLeft: parseFloat(10, 10) * parseFloat(100/10, 10),
       maxNegative: parseFloat(10, 10)
     }, "Gives back extra info for the negative charts");
-  });
-
-
-  module('jQuery.magnaCharta OUTDENT-All', {
-    setup: function() {
-      this.$outdentAll = $("#qunit-fixture").children("#outdent-all");
-      this.outdentMC = $.magnaCharta(this.$outdentAll);
-    }
-  });
-
-  test('all cell values are pushed left', function() {
-    this.outdentMC.$graph.find(".mc-bar-cell span").each(function(i, item) {
-      equal(item.style.marginLeft, "100%");
-    });
-  });
-
-  module('jQuery.magnaCharta AUTOOUTDENT', {
-    setup: function() {
-      this.$autoOutdent = $("#qunitfixture").children("#auto-outdent");
-      this.autoOutdentMC = $.magnaCharta(this.$autoOutdent);
-    }
   });
 
 
