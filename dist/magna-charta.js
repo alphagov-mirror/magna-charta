@@ -1,9 +1,10 @@
-/*! Magna Charta - v3.0.0 - 2012-12-04
+/*! Magna Charta - v3.0.0 - 2012-12-17
 * https://github.com/alphagov/magna-charta
  */
 
 (function($) {
 
+  "use strict";
 
   var MagnaCharta = function() {
     this.init = function(table, options) {
