@@ -5,35 +5,31 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    pkg: '<json:magna-charta.jquery.json>',
+    pkg: grunt.file.readJSON('package.json'),
     meta: {
       banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
         '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
         '<%= pkg.homepage ? "* " + pkg.homepage + "\n" : "" %> */'
     },
-    concat: {
+    uglify: {
+      options: {
+        banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
+      },
       dist: {
-        src: ['<banner:meta.banner>', '<file_strip_banner:src/<%= pkg.name %>.js>'],
-        dest: 'dist/<%= pkg.name %>.js'
-      }
-    },
-    min: {
-      dist: {
-        src: ['<banner:meta.banner>', '<config:concat.dist.dest>'],
-        dest: 'dist/<%= pkg.name %>.min.js'
+        files: {
+          'dist/<%= pkg.name %>.min.js': ['src/<%= pkg.name %>.js']
+        }
       }
     },
     qunit: {
       files: ['test/**/*.html']
     },
-    lint: {
-      files: ['grunt.js', 'src/**/*.js', 'test/**/*.js']
-    },
     watch: {
-      files: '<config:lint.files>',
-      tasks: 'qunit'
+      files: ['<%= jshint.files %>'],
+      tasks: ['jshint', 'qunit']
     },
     jshint: {
+      files: ['grunt.js', 'src/**/*.js', 'test/**/*.js'],
       options: {
         curly: true,
         eqeqeq: true,
@@ -46,19 +42,21 @@ module.exports = function(grunt) {
         boss: true,
         eqnull: true,
         browser: true,
-        strict: true
+        strict: true,
+        globals: {
+          jQuery: true,
+          console: true
+        }
       },
-      globals: {
-        jQuery: true,
-        console: true
-      }
     },
-    uglify: {}
   });
 
-  // Default task.
-  grunt.registerTask('default', 'lint qunit concat min');
-  grunt.registerTask('test', 'lint qunit');
-  grunt.registerTask('skip-lint', 'qunit concat min');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-qunit');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+
+  grunt.registerTask('test', ['jshint', 'qunit']);
+  grunt.registerTask('default', ['jshint', 'qunit', 'uglify']);
 
 };
